@@ -1,0 +1,4 @@
+I am learning scala.
+I like to learn cats and effects as well.
+Once I learn designing principal in scala.
+scala will be fun language.

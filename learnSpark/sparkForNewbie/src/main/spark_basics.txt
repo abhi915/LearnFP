@@ -1,0 +1,213 @@
+-Dlog4j.configuration=file:sparkRDD/log4j.properties
+-Dspark.yarn.app.container.log.dir=sparkRDD/app-logs
+-Dlogfile.name=sparkRDD.log
+
+
+
+
+Spark - It is unified computing engine and distributed data processing framework
+
+Spark API
+RDD - Resilient Distributed Dataset
+
+
+       Spark SQL       DATAFRAME  API      DATASET API
+
+           ---------------------------------------
+                       catalyst optimizer
+---------------------------------------------------------
+                          RDD API
+
+Don't use RDD API directly, use DataFrame or Dataset API. It goes through catalyst optimizer and then RDD API.
+
+
+Spark SQL - Spark SQL is a Spark module for structured data processing.
+            It provides a programming abstraction called DataFrames and can also act as distributed SQL query engine.
+            It enables unmodified Hadoop Hive queries to run up to 100x faster on existing deployments and data.
+            It provides high-level APIs in Java, Scala, Python and R, and an optimized engine that supports general execution graphs.
+            It also supports a rich set of higher-level tools including Spark SQL for SQL and structured data processing, MLlib for machine learning, GraphX for graph processing, and Spark Streaming.
+
+DataFrame - A DataFrame is a distributed collection of data organized into named columns.
+            Generic type.
+            Actual data type assign at runtime.
+            It supports expression based transformation.
+            Dataset[Row]
+
+DataSet API - Language native API in scala and Java.
+              Strongly typed API in JVM type object.
+              give compile time type safety.
+              It supports function based tranfomration.
+              Dataset[UD Objetc]
+
+RDD - Resilient Distributed Dataset
+    - It is dataset of partitioned data with fault tolerance.
+    - Resilient - fault tolerant -
+                      - they have information how they are created
+                      - if executor fails, drive can recreate RDDs by assigning partitioned data to another executor.
+
+
+
+Transfomations:
+  1. Narrow Transfomation
+           - one input transformation - one output transformation
+           - eg. map, filter, union, join, groupByKey, reduceByKey, etc.
+
+  2.Wide Transfomation
+            - one input transformation - multiple output transformation
+            - eg. groupBy, distinct, sortBy, etc.
+
+
+Computing dataframe
+    1. Lazy evaluation
+    2. Planning
+         - spark compiles to DF transformation into graph before running any code
+         - logical plan - DF dependency graph + narrow/wide transformation sequence
+         - physical plan - optimize sequence of steps for nodes in clsuter.
+         - optimization -
+
+
+
+shuffle - data exchange between executors
+          - wide transformation
+          - expensive operation
+
+
+Transformation vs Action
+- Transformation - how new dataframe obtained from existing dataframe
+- Action - trigger computation and return result
+
+
+
+-------------------
+1. Actions
+2. Transformations
+3. Utility Functions
+
+-------------------
+Actions
+  1.collect() - Return all the elements of the dataset as an array at the driver program.
+  2.collectAList() - Return all the elements of the dataset as a list at the driver program.
+  3.count() - Return the number of elements in the dataset.
+  4.take(n) - Return an array with the first n elements of the dataset.
+  5.foreach(f) - Run a function f on each element of the dataset. This is usually done for side effects such as updating an Accumulator or interacting with external storage systems.
+  6.reduce(f) - Aggregate the elements of the dataset using a function f (which takes two arguments and returns one). The function should be commutative and associative so that it can be computed correctly in parallel.
+  7.fold(z)(f) - Aggregate the elements of each partition, and then the results for all the partitions, using a given associative function and a neutral "zero value."
+  8.aggregate(z)(seqOp, combOp) - Aggregate the elements of each partition, and then the results for all the partitions, using given combine functions and a neutral "zero value."
+  9.saveAsTextFile(path) - Write the elements of the dataset as a text file (or set of text files) in a given directory in the local filesystem, HDFS or any other Hadoop-supported file system. Spark will call toString on each element to convert it to a line of text in the file.
+
+Transformations:
+  1. select() - Selects a set of column based on column names or expressions.
+  2. groupBy() - Groups the DataFrame using the specified columns, so we can run aggregation on them.
+  3. where() - This is equivalent to filter().
+  4. repartition() - Returns a new DataFrame partitioned by the given partitioning expressions into numPartitions. The resulting DataFrame is hash partitioned.
+  5. map() - Returns a new DataFrame by applying a function to each element of this Dataset.
+  6.  flatMap() - Returns a new Dataset by first applying a function to all elements of this Dataset, and then flattening the results.
+  7. groupByKey() - When called on a dataset of (K, V) pairs, returns a dataset of (K, Iterable<V>) pairs.
+
+Utility Functions:
+ 1. printSchema() - Prints out the schema in the tree format.
+ 2. cache() - Persist this Dataset with the default storage level (MEMORY_AND_DISK).
+ 3  persist() - Persist this Dataset with the default storage level (MEMORY_AND_DISK).
+ 4. unpersist() - Mark the Dataset as non-persistent, and remove all blocks for it from memory and disk.
+ 5. createOrReplaceTempView() - Creates or replaces a local temporary view with this Dataset.
+ 6. rdd() - Returns the content of the Dataset as an RDD of Rows.
+ 7. write() - Interface for saving the content of the non-streaming Dataset out into external storage.
+
+
+----------------------------------------
+DataSources:
+Reading DF
+  - format
+  - schema (optional)/ information
+  - mode  // failFast, dropMalformed, permissive
+  - path
+  - load
+
+Write DF
+   - format
+   - mode
+   - path
+   - save
+
+write DF optional
+   allowSingleQuotes
+   Compression // snappy, gzip, lzo, etc.
+
+
+--------------------------------------------------
+spark Data types:
+   --- org.apache.spark.sql.datatypes._
+
+   -StringType
+   -IntegerType
+   -StructType
+   -StructField
+   -ArrayType
+      Supported function to arraytype
+       - array
+       - array_contains
+       - element_at
+       - explode
+       - flatten
+       - posexplode
+       - split
+       - size
+       - sort_array
+\
+      -
+   -MapType
+   Supported function to MapType
+         - map
+         - map_keys
+         - map_values
+         - map_concat
+         - map_from_arrays
+         - map_from_entries
+         - map_keys
+         - map_values
+         - map_zip_with
+         - map_zip_with_index
+
+
+   -LongType
+   -DoubleType
+   -FloatType
+   -ShortType
+   -ByteType
+   -BinaryType
+   -BooleanType
+   -DateType
+   -TimestampType
+   -DecimalType
+   -NullType
+   -CalendarIntervalType
+   -NumericType
+   -IntegerType
+
+
+
+-----------------------
+Aggregation function: [Wide transfomation]
+    - groupBy, agg, count, sum, avg, min, max, mean, pivot, rollup, cube, etc.
+     - stdDev, variance, collect_list, collect_set, first, last, etc.: =
+
+------------------------
+joins [Wide transformation]
+    - inner       => inner join
+    - left_outer  => left join
+    - right_outer => right join
+    - full_outer  => full join
+    - cross       => cross join
+    - left_semi   => semi join
+    - left_anti   => anti join
+    - natural     => natural join
+
+
+Adding plain value to DF
+    - lit() function
+
+
+ Creating new column
+    - from expression of one column
+    - from 2,3 column                  ----> we can use udf function
+
