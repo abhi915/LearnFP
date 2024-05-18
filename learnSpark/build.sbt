@@ -6,7 +6,6 @@ ThisBuild / scalaVersion := "2.13.12"
 val sparkVersion = "3.3.3"
 
 // assembly strategy to avoid conflict with spark
-
 lazy val defaultMergeStrategy = assembly / assemblyMergeStrategy := {
   case PathList("META-INF", "native-image", "io.netty", _*)   => MergeStrategy.first
   case PathList("META-INF", "native", _*)                     => MergeStrategy.first
@@ -38,7 +37,7 @@ lazy val root = (project in file("."))
   .aggregate(learnSparkBasics,
     sparkRDD,
     sparkHiveExample)
-  .settings(name := "spark")
+  .settings(name := "learnSpark")
 
 
 lazy val learnSparkBasics = (project in file("sparkForNewbie"))

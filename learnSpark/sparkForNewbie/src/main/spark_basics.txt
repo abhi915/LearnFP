@@ -3,7 +3,9 @@
 -Dlogfile.name=sparkRDD.log
 
 
-
+--
+From leaern from rockthejvm
+---
 
 Spark - It is unified computing engine and distributed data processing framework
 
@@ -177,6 +179,31 @@ spark Data types:
    -BinaryType
    -BooleanType
    -DateType
+   Supported function to dateType
+      - current_date
+        - date_add
+        - date_format
+        - date_sub
+        - datediff
+        - dayofmonth
+        - dayofweek
+        - dayofyear
+        - from_unixtime
+        - from_utc_timestamp
+        - last_day
+        - months_between
+        - next_day
+        - quarter
+        - to_date
+        - to_utc_timestamp
+        - trunc
+        - unix_timestamp
+        - weekofyear
+        - year
+        - month
+        - day
+        - hour
+        - minute
    -TimestampType
    -DecimalType
    -NullType
@@ -210,4 +237,116 @@ Adding plain value to DF
  Creating new column
     - from expression of one column
     - from 2,3 column                  ----> we can use udf function
+
+
+Managing date and time
+   - date_add
+    - date_sub
+    - datediff
+    - add_months
+    - months_between
+    - next_day
+    - last_day
+    - trunc
+
+
+Managing nulls-
+    - coalesce
+    - isNull
+    - isNotNull
+    - na.fill
+    - na.replace
+    - na.drop
+    - na.dropDuplicates
+    - na.dropDuplicates
+    - na.drop
+    - na.fill
+
+
+ -----------------------------
+ when to use dataset and dataframe
+    - when we need compile time type safety, we should use dataset
+    - when we need to use functional programming, we should use dataset
+    - when we need to use sql query
+    - filter transformation hard to express in sql or dataframe
+
+Avoid when
+  - perfomance is critical: spark can't optimize datase
+
+
+
+  ----------
+  RDD - Resilient Distributed Dataset
+    first citizen of spark, all higher level API build on top of RDD
+
+  Pro - can be highly optimized
+  partitioning can be controlled
+  order of data can be controlled
+  order of operation matters for performance
+
+  Con - no compile time type safety
+  - no optimization
+  - no catalyst optimizer
+
+  rdd to DF  --> loose type information
+  rdd to DS  --> keep type information
+
+
+  rdd and dataset common
+    - map, filter, flatMap, groupByKey, reduceByKey, join, etc.
+    - union,count, distinct, etc.
+    - groupBy, sortBy, etc.
+
+  RDD over datasets
+    - when we need to control partitioning - repartition, coalesce, partitionBy, zipPartitions, etc.
+    - operation control -checkpoint, persist, cache, etc.
+
+
+
+--------
+Following are important to understand spark DAG
+
+spark has job
+job has stage
+stage has task
+
+What is stage? --> a set of computation between shuffles
+task           ---> a unit of computation per partition
+
+
+------------------
+The anatomy of cluster:
+Spark cluster manager (Standalone, YARN, Mesos)
+ - one node manages state of cluster
+ - other do work
+ - communicate via driver worker process
+
+Spark driver
+ - manages state of stages/tasks of application
+ - interface with cluster manager
+
+Spark executor
+  - run task assigned by spark driver
+  - return the state and result to driver
+
+
+
+Execution mode
+  1. cluster
+  2. client
+  3. local
+
+ Cluster mode
+    - spark driver launch on worker node
+    - cluster manager responsible for spark process
+
+ Client mode
+   - spark driver is on client machine
+   - client responsible for spark process and state management
+
+ Local mode:
+   -  entire application runs on same machine
+
+
+
 
