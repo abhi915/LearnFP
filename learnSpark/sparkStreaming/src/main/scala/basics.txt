@@ -1,0 +1,57 @@
+
+Stream processing
+real life scenario
+- sensor reading
+- interaction with application/ website
+- alerts and notiification
+
+Pros/cons
+Pros
+ - lower latency than batch processing
+ - greater performance efficiency
+
+Cons
+ - Maintain state and order of incoming data <- event time processing
+ - Exactly once processing in cotext of machine failures <- fault tolerance
+ - Responding event low latency
+
+
+
+Spark streaming principles
+Declarative api
+ - what needs to be computed, let the library decides how
+alernative raat: (record at a time)
+  -  set of api to process each incoming event
+  - low-level: maintaining state and resource usage is your responsibility
+
+event time vs processing time api
+ - event time when event produced
+ - processing time when event arrives
+ - event time critical : lateness of data point detection.
+
+continuous vs micro batch processing
+continuous: each data point as it arrives                <- low latency
+macro batch: gather multiple data record in minibatches  <- higher throughput
+
+Spark streaming operates on microbatches:
+
+
+Streaming I/O
+append: only add new records
+update: modify records in place
+complete: rewrite everything
+
+Not all queris and sink support all output mode
+
+Triggers: when new data is written
+- default: write as soon as current microbatch is process
+- once: write single micro batch and stop
+- processing time: look for new data after certain interval
+- continuous: currently experimental
+
+
+
+aggreagation with append and update not supported on aggregation without watermark.
+aggregation with distinct not supported. // otherwise spark will need to keep track of everything.
+
+

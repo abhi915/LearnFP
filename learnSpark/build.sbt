@@ -1,9 +1,10 @@
 
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.13.12"
+ThisBuild / scalaVersion := "2.12.12"
 
 val sparkVersion = "3.3.3"
+val  log4jVersion = "2.4.1"
 
 // assembly strategy to avoid conflict with spark
 lazy val defaultMergeStrategy = assembly / assemblyMergeStrategy := {
@@ -64,6 +65,12 @@ lazy val sparkStreaming = (project in file("sparkStreaming"))
   .settings(
     name := "sparkStreaming",
     libraryDependencies ++= sparkDependencies
-        ++ Seq("org.apache.spark" %% "spark-streaming" % "3.5.0")
+        ++ Seq("org.apache.spark" %% "spark-streaming" % sparkVersion,
+      "org.apache.spark" % "spark-sql-kafka-0-10_2.12" % sparkVersion,   // spark kafka
+      "org.apache.spark" %% "spark-streaming-kafka-0-10" % sparkVersion,// spark kafka low level integration
+
+      "org.apache.logging.log4j" % "log4j-api" % log4jVersion,  // logging
+      "org.apache.logging.log4j" % "log4j-core" % log4jVersion) // logging
+
         ++ testDependencies
   )
