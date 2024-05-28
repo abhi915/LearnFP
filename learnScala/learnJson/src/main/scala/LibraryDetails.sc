@@ -63,6 +63,7 @@ for {
 } yield (name, age)
 
 
+
 // XPath + HOFs
 
 import org.json4s._
@@ -82,6 +83,8 @@ val jsonNew = parse("""{
                 |}""".stripMargin)
 // use DXPATH + HOF
 jsonNew \\ "spouse"
+
+
 
 // case classes can be used to extract value from json
 

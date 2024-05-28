@@ -1,13 +1,19 @@
+import scala.collection.immutable.Seq
+
 
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
 ThisBuild / scalaVersion := "2.13.12"
 
+lazy val json4sVersion = "3.7.0-M11"
+
+lazy val commonDependencies =  Seq("org.scalatest" %% "scalatest" % "3.1.0" % Test)
 
 lazy val root = (project in file("."))
   .aggregate(learnCats,
              learnEffects)
   .settings(name := "learnScala")
+
 
 
 lazy val learnScalaBasics = (project in file("learnScalaBasics"))
@@ -42,6 +48,16 @@ lazy val learnJson = (project in file("learnJson"))
       libraryDependencies ++= Seq(
         "org.json4s" %% "json4s-native" % "4.0.4",
         "org.json4s" %% "json4s-jackson" % "4.0.4"))
+
+lazy val learnProtobuf = (project in file("learnProtobuf"))
+  .settings(
+    name := "learnProtobuf",
+    libraryDependencies ++= commonDependencies ++ Seq(
+      "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
+      "org.json4s" %% "json4s-jackson" % json4sVersion),
+    Compile / PB.targets := Seq(
+      scalapb.gen() -> (Compile / sourceManaged).value / "scalapb"),
+    Compile / PB.protocOptions += "--experimental_allow_proto3_optional")
 
 lazy val scalaInterviewQuestions = (project in file("scalaInterviewQuestions"))
   .settings(
