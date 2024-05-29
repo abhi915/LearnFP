@@ -54,10 +54,21 @@ lazy val learnProtobuf = (project in file("learnProtobuf"))
     name := "learnProtobuf",
     libraryDependencies ++= commonDependencies ++ Seq(
       "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
-      "org.json4s" %% "json4s-jackson" % json4sVersion),
+      "org.json4s" %% "json4s-native" % "4.0.4"), // not needed but for comparison and creating a json serializer used
     Compile / PB.targets := Seq(
       scalapb.gen() -> (Compile / sourceManaged).value / "scalapb"),
     Compile / PB.protocOptions += "--experimental_allow_proto3_optional")
+
+lazy val learnChimneyProtobuf = (project in file("learnChimneyProtobuf"))
+  .settings(
+    name := "learnChimneyProtobuf",
+    libraryDependencies ++= commonDependencies ++ Seq(
+      "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
+      "io.scalaland" %% "chimney" % "0.7.5"),
+    Compile / PB.targets := Seq(
+      scalapb.gen() -> (Compile / sourceManaged).value / "scalapb"),
+    Compile / PB.protocOptions += "--experimental_allow_proto3_optional")
+
 
 lazy val scalaInterviewQuestions = (project in file("scalaInterviewQuestions"))
   .settings(
