@@ -38,10 +38,6 @@ object ShowDerivation extends ShowDerivation  {
 
 case class Working(bar: Int, hello: String)
 
-sealed trait Tree[+T]
-case class Branch[+T](left: Tree[T], right: Tree[T]) extends Tree[T]
-case class Leaf[+T](value: T) extends Tree[T]
-
 
 
 def main(): Unit = {
@@ -49,9 +45,13 @@ def main(): Unit = {
   import ShowDerivation._
 
 
-  println(ShowDerivation[Working].show(Working(89, "Abhi")))
+  println("manolia magic<<" + ShowDerivation[Working].show(Working(89, "Abhi")))
 
- // println(ShowDerivation.gen[Branch[Int]].show(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3))))
+  implicit class derivativeOps[T: Show](value: T) {
+    def show =  ShowDerivation[T].show(value)
+  }
+
+  println("implicit magic>>>" + Working(89, "Abhi").show)
 
 }
 
