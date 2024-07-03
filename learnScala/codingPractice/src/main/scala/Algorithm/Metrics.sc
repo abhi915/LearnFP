@@ -43,9 +43,5 @@ if vertex present add edge in transpose graph
  */
 
 
-val adj: Array[ArrayBuffer[Int]] = Array.ofDim(5)
-
-adj(0).addOne(1).addOne(3).addOne(4)
-adj(1) = ArrayBuffer(2,3,4)
 
 

@@ -5,7 +5,7 @@ val metric: Array[Array[String]] = Array.ofDim(3, 3)
 
 for(i <- 0 to 2){
   for(j <- 0 to 2){
-    metric(i)(j) = "(" + i + "," + j + ")"
+    metric(i)(j) = List(i,j).mkString("(",",",")")//"(" + i + "," + j + ")"
   }
 }
 
