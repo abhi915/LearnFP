@@ -56,21 +56,17 @@ lazy val sparkRDD = (project in file("sparkRDD"))
 lazy val sparkHiveExample = (project in file("sparkHiveExample"))
   .settings(
     name := "sparkHiveExample",
-    libraryDependencies ++= sparkDependencies
-      ++ Seq("org.apache.spark" %% "spark-hive" % sparkVersion)
-      ++ testDependencies
+    libraryDependencies ++= sparkDependencies ++
+      Seq("org.apache.spark" %% "spark-hive" % sparkVersion) ++ testDependencies
   )
 
 lazy val sparkStreaming = (project in file("sparkStreaming"))
   .settings(
     name := "sparkStreaming",
-    libraryDependencies ++= sparkDependencies
-        ++ Seq("org.apache.spark" %% "spark-streaming" % sparkVersion,
+    libraryDependencies ++= sparkDependencies ++ Seq("org.apache.spark" %% "spark-streaming" % sparkVersion,
       "org.apache.spark" % "spark-sql-kafka-0-10_2.12" % sparkVersion,   // spark kafka
       "org.apache.spark" %% "spark-streaming-kafka-0-10" % sparkVersion,// spark kafka low level integration
 
       "org.apache.logging.log4j" % "log4j-api" % log4jVersion,  // logging
-      "org.apache.logging.log4j" % "log4j-core" % log4jVersion) // logging
-
-        ++ testDependencies
+      "org.apache.logging.log4j" % "log4j-core" % log4jVersion) ++ testDependencies
   )
