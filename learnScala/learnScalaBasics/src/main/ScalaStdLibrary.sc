@@ -63,11 +63,25 @@ root
   - transient
   - uncheked
   - volatile
-
-
-
-
-
-
-
  */
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
+
+def x = Future {
+
+  Thread.sleep(1000)
+  100
+}
+
+def y = Future {
+  Thread.sleep(100)
+  10
+}
+
+import scala.collection.immutable.Seq
+val f = Seq(x,y)
+
+Future
+  .sequence(f)

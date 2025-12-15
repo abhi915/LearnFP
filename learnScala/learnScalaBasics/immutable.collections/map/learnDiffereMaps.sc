@@ -1,5 +1,0 @@
-/*
-HashMap
-ListMap
-SortedMap - TreeMap
- */

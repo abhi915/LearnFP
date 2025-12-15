@@ -21,6 +21,13 @@ val n1 = List(2,4,3)
 val n2 = List(7,6,5,2,3)
 
 
+
+//
+//  243
+//76523
+//    76766
+
+
 def addTwoNumbers(n1: List[Int], n2: List[Int], extra:Int,  acc: List[Int]): List[Int] = {
   (n1, n2) match {
     case (Nil, Nil) =>  if (extra != 0) extra::acc else acc
@@ -30,4 +37,4 @@ def addTwoNumbers(n1: List[Int], n2: List[Int], extra:Int,  acc: List[Int]): Lis
   }
 }
 
-addTwoNumbers(n1, n2, 0, List.empty[Int]).reverse
+addTwoNumbers(n1.reverse, n2.reverse, 0, List.empty[Int])

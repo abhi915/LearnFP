@@ -21,6 +21,8 @@ val arrCoins =List(2,5,3,6)
 
 
 
+// without using current coin and using current coin
+
 def findCombination(arrCoin: List[Int])(sum: Int): Int = {
   if (sum == 0) 1
   else if (sum < 0 || (arrCoin.length == 0)) 0
@@ -31,3 +33,7 @@ def findCombination(arrCoin: List[Int])(sum: Int): Int = {
 
 val data = findCombination(arrCoins)(10)
 println(data)
+
+
+
+

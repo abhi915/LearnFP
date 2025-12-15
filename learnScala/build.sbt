@@ -20,6 +20,9 @@ lazy val learnScalaBasics = (project in file("learnScalaBasics"))
   .settings(
       name := "learnScalaBasics")
 
+lazy val codingPractice = (project in file("codingPractice"))
+  .settings(
+    name := "codingPractice")
 
 lazy val learnCats = (project in file("learnCats"))
   .settings(
