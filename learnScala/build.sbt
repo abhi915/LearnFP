@@ -14,27 +14,19 @@ lazy val root = (project in file("."))
              learnEffects)
   .settings(name := "learnScala")
 
-
-
 lazy val learnScalaBasics = (project in file("learnScalaBasics"))
-  .settings(
-      name := "learnScalaBasics")
+  .settings(name := "learnScalaBasics")
 
 lazy val codingPractice = (project in file("codingPractice"))
-  .settings(
-    name := "codingPractice")
+  .settings(name := "codingPractice")
 
 lazy val learnCats = (project in file("learnCats"))
-  .settings(
-    name := "learnCats",
-    libraryDependencies += "org.typelevel" %% "cats-core" % "2.2.0")
-
+  .settings(name := "learnCats", libraryDependencies += "org.typelevel" %% "cats-core" % "2.2.0")
 
 lazy val learnEffects = (project in file("learnEffects"))
   .settings(
     name := "learnEffects",
     libraryDependencies += "org.typelevel" %% "cats-effect" % "3.1.1")
-
 
 lazy val learnMagnoliaTypeClass = (project in file("learnMagnoliaTypeClass"))
   .settings(
@@ -71,7 +63,6 @@ lazy val learnChimneyProtobuf = (project in file("learnChimneyProtobuf"))
     Compile / PB.targets := Seq(
       scalapb.gen() -> (Compile / sourceManaged).value / "scalapb"),
     Compile / PB.protocOptions += "--experimental_allow_proto3_optional")
-
 
 lazy val scalaInterviewQuestions = (project in file("scalaInterviewQuestions"))
   .settings(
