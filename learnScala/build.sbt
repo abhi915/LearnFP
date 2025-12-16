@@ -36,9 +36,9 @@ lazy val learnEffects = (project in file("learnEffects"))
     libraryDependencies += "org.typelevel" %% "cats-effect" % "3.1.1")
 
 
-lazy val learnMangoliaTypeClass = (project in file("learnMangoliaTypeClass"))
+lazy val learnMagnoliaTypeClass = (project in file("learnMagnoliaTypeClass"))
   .settings(
-    name := "learnMangoliaTypeClass",
+    name := "learnMagnoliaTypeClass",
     libraryDependencies ++=
       Seq(
         "com.softwaremill.magnolia1_2" %% "magnolia" % "1.1.8",
